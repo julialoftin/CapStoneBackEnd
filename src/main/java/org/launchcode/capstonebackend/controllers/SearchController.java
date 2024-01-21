@@ -1,7 +1,8 @@
 package org.launchcode.capstonebackend.controllers;
 
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,6 +12,7 @@ import java.net.http.HttpResponse;
 
 
 @RestController
+@RequestMapping("search")
 public class SearchController {
     HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://api.themoviedb.org/3/search/keyword?page=1"))
@@ -21,6 +23,17 @@ public class SearchController {
     HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
     public SearchController() throws IOException, InterruptedException {
+    }
+
+    @GetMapping
+    public String search(Model model) {
+        return "search";
+    }
+
+    @PostMapping
+    public String displaySearchResults(Model model, @RequestParam String searchTerm) {
+
+        return "search";
     }
 
 }
