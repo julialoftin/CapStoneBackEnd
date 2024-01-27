@@ -1,6 +1,7 @@
 package org.launchcode.capstonebackend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,9 @@ import java.util.List;
 @Entity
 public class WatchList extends AbstractEntity {
 
+    @NotNull
     private String name;
+    @NotNull
     private String description;
 
     @ManyToMany(cascade = CascadeType.ALL)
