@@ -1,6 +1,8 @@
 package org.launchcode.capstonebackend.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -15,9 +17,19 @@ public class Review extends AbstractEntity {
     @Size(min = 50, max = 1000, message = "Review must be between 50 and 1000 characters.")
     private String reviewBody;
 
-    public Review(String title, String reviewBody) {
+    @ManyToOne
+    @JoinColumn(name = "tmdb_Id")
+    private MediaItem mediaItem;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Review(String title, String reviewBody, MediaItem mediaItem, User user) {
         this.title = title;
         this.reviewBody = reviewBody;
+        this.mediaItem = mediaItem;
+        this.user = user;
     }
 
     public String getTitle() {
@@ -36,4 +48,19 @@ public class Review extends AbstractEntity {
         this.reviewBody = reviewBody;
     }
 
+    public MediaItem getMediaItem() {
+        return mediaItem;
+    }
+
+    public void setMediaItem(MediaItem mediaItem) {
+        this.mediaItem = mediaItem;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
