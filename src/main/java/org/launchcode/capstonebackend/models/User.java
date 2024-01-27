@@ -44,4 +44,9 @@ public class User extends AbstractEntity {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+        review.setUser(this);
+    }
 }
