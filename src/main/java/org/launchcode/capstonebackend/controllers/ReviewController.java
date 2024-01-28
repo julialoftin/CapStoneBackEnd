@@ -15,6 +15,7 @@ public class ReviewController {
     @Autowired
     ReviewRepository reviewRepository;
 
+    // Awaiting Authentication Controller to be able to verify user's session to associate review with user
 //    @PostMapping("/add-review")
 //    public ResponseEntity<Review> addReviewToMediaItem(@RequestBody MediaItemDTO mediaItemDTO,
 //                                                       ) {
