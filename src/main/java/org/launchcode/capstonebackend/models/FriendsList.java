@@ -3,14 +3,23 @@ package org.launchcode.capstonebackend.models;
 import jakarta.persistence.Entity;
 
 @Entity
-public class FriendsList {
-
+public class FriendsList extends AbstractEntity{
+    private String username;
     private String firstName;
     private String lastName;
 
-    public FriendsList(String firstName, String lastName) {
+    public FriendsList(String username, String firstName, String lastName) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -32,7 +41,8 @@ public class FriendsList {
     @Override
     public String toString() {
         return "FriendsList{" +
-                "firstName='" + firstName + '\'' +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
