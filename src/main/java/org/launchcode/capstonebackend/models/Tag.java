@@ -1,7 +1,9 @@
 package org.launchcode.capstonebackend.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -15,8 +17,12 @@ public class Tag extends AbstractEntity {
     @NotBlank
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "tags")
     private List<MediaItem> mediaItems = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Tag(String name) {
         this.name = name;

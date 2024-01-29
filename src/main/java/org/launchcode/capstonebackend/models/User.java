@@ -22,6 +22,9 @@ public class User extends AbstractEntity {
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Tag> tags = new ArrayList<>();
+
     public User() {}
 
     public User(String username, String password) {
@@ -46,7 +49,19 @@ public class User extends AbstractEntity {
     }
 
     public void addReview(Review review) {
-        reviews.add(review);
+        this.reviews.add(review);
         review.setUser(this);
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void addTag(Tag tag) {
+
     }
 }

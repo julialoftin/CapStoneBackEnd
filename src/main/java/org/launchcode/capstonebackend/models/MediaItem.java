@@ -26,6 +26,10 @@ public class MediaItem {
     private List<Review> reviews;
 
     @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "tmdb_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private List<Tag> tags = new ArrayList<>();
 
     public MediaItem() {}
