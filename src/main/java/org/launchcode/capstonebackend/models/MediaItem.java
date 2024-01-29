@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,6 +24,9 @@ public class MediaItem {
 
     @OneToMany(mappedBy = "mediaItem")
     private List<Review> reviews;
+
+    @ManyToMany
+    private List<Tag> tags = new ArrayList<>();
 
     public MediaItem() {}
 
@@ -65,6 +69,18 @@ public class MediaItem {
 
     public void addReviewToList(Review review) {
         reviews.add(review);
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
     }
 
     @Override
