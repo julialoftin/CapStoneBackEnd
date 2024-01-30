@@ -64,4 +64,5 @@ public class User extends AbstractEntity {
     public void addTag(Tag tag) {
 
     }
+
 }
