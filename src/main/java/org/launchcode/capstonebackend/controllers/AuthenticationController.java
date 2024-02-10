@@ -1,10 +1,17 @@
 package org.launchcode.capstonebackend.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.launchcode.capstonebackend.models.User;
 import org.launchcode.capstonebackend.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 
@@ -34,4 +41,43 @@ public class AuthenticationController {
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getId());
     }
+
+    // Create handlers
+
+    @GetMapping("/register")
+    public String displayRegistrationForm(Model model, HttpSession session) {
+        model.addAttribute(new RegisterFormDTO());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
+                                          Errors errors, HttpServletRequest request,
+                                          Model model) {
+
+        if (errors.hasErrors()) {
+            return "register";
+        }
+
+        User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
+
+        if (existingUser != null) {
+            errors.rejectValue("username", "username.alreadyExists", "A user with that username already exists");
+            return "register";
+        }
+
+        String password = registerFormDTO.getPassword();
+        String verifyPassword = registerFormDTO.getVerifyPassword();
+        if (!password.equals(verifyPassword)) {
+            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
+            return "register";
+        }
+
+        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
+        userRepository.save(newUser);
+        setUserInSession(request.getSession(), newUser);
+        System.out.println("Registration form processed");
+        return "redirect:/profile"; // sends user to their profile page
+    }
+
 }
