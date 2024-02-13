@@ -49,4 +49,8 @@ public class User extends AbstractEntity {
         reviews.add(review);
         review.setUser(this);
     }
+
+    public void deleteReview(Review review) {
+        reviews.remove(review);
+    }
 }

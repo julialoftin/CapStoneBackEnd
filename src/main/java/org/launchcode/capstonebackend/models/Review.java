@@ -32,6 +32,8 @@ public class Review extends AbstractEntity {
         this.user = user;
     }
 
+    public Review() {}
+
     public String getTitle() {
         return title;
     }
