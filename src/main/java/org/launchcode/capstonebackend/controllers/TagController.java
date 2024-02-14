@@ -43,7 +43,7 @@ public class TagController {
     }
 
     private Tag convertTagDTOToEntity(TagDTO tagDTO) {
-        Optional<Tag> existingTag = tagRepository.findByTagName(tagDTO.getName());
+        Optional<Tag> existingTag = tagRepository.findByName(tagDTO.getName());
         return existingTag.orElseGet(() -> new Tag(tagDTO.getName()));
     }
 
@@ -61,7 +61,7 @@ public class TagController {
             }
 
             // Checks if a tag of the same name exists
-            Optional<Tag> existingTag = tagRepository.findByTagName(tagDTO.getName());
+            Optional<Tag> existingTag = tagRepository.findByName(tagDTO.getName());
             if (existingTag.isPresent()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }

@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface TagRepository extends CrudRepository<Tag, Integer> {
 
-    Optional<Tag> findByTagName(String name);
+    Optional<Tag> findByName(String name);
 
 }
