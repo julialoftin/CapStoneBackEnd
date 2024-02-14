@@ -49,7 +49,6 @@ public class ReviewController {
         return review;
     }
 
-    // test in postman, first create user account
     @PostMapping("/add")
     public ResponseEntity<Review> addReviewToMediaItem(@RequestBody @Valid ReviewMediaItemCombinedDTO reviewMediaItemCombinedDTO,
                                                        Errors errors, HttpSession session) {
