@@ -27,8 +27,8 @@ public class MediaItemController {
     WatchListRepository watchListRepository;
 
     private MediaItem convertMediaItemDTOToEntity(MediaItemDTO mediaItemDTO) {
-        MediaItem mediaItem = new MediaItem(mediaItemDTO.getTmdbId(), mediaItemDTO.getMediaType());
-        return mediaItem;
+        Optional<MediaItem> existingMediaItem = mediaItemRepository.findById(mediaItemDTO.getTmdbId());
+        return existingMediaItem.orElseGet(() -> new MediaItem(mediaItemDTO.getTmdbId(), mediaItemDTO.getMediaType()));
     }
 
     @PostMapping("/add-to-watchlist/{watchListId}")
