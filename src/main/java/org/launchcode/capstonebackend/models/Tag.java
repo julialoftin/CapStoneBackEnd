@@ -36,8 +36,24 @@ public class Tag extends AbstractEntity {
         this.name = name;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public List<MediaItem> getMediaItems() {
         return mediaItems;
+    }
+
+    public void setMediaItems(List<MediaItem> mediaItems) {
+        this.mediaItems = mediaItems;
+    }
+
+    public void addMediaItem(MediaItem mediaItem) {
+        mediaItems.add(mediaItem);
     }
 
 }

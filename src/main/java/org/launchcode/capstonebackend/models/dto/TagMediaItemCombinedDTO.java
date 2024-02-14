@@ -1,18 +1,18 @@
 package org.launchcode.capstonebackend.models.dto;
 
 import jakarta.validation.constraints.NotNull;
-import org.launchcode.capstonebackend.models.MediaItem;
+import org.launchcode.capstonebackend.models.Tag;
 
-public class ReviewMediaItemCombinedDTO {
+public class TagMediaItemCombinedDTO {
 
     @NotNull
-    private ReviewDTO reviewDTO;
+    private TagDTO tagDTO;
 
     @NotNull
     private MediaItemDTO mediaItemDTO;
 
-    public ReviewDTO getReviewDTO() {
-        return reviewDTO;
+    public TagDTO getTagDTO() {
+        return tagDTO;
     }
 
     public MediaItemDTO getMediaItemDTO() {
