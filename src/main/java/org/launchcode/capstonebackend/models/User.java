@@ -53,6 +53,10 @@ public class User extends AbstractEntity {
         review.setUser(this);
     }
 
+    public void deleteReview(Review review) {
+        reviews.remove(review);
+    }
+
     public List<Tag> getTags() {
         return tags;
     }
@@ -64,5 +68,6 @@ public class User extends AbstractEntity {
     public void addTag(Tag tag) {
 
     }
+
 
 }
