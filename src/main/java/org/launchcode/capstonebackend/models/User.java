@@ -1,5 +1,6 @@
 package org.launchcode.capstonebackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
@@ -19,9 +20,11 @@ public class User extends AbstractEntity {
     @NotNull
     private String pwHash;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "user")
     private List<Tag> tags = new ArrayList<>();
 
@@ -66,7 +69,7 @@ public class User extends AbstractEntity {
     }
 
     public void addTag(Tag tag) {
-
+        tags.add(tag);
     }
 
 

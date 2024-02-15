@@ -66,12 +66,12 @@ public class ReviewController {
             Review review = convertReviewDTOToEntity(reviewMediaItemCombinedDTO.getReviewDTO());
             MediaItem mediaItem = convertMediaItemDTOToEntity(reviewMediaItemCombinedDTO.getMediaItemDTO());
 
-            review.setUser(user);
-            review.setMediaItem(mediaItem);
-
-            reviewRepository.save(review);
             mediaItem.addReviewToList(review);
             mediaItemRepository.save(mediaItem);
+
+            review.setUser(user);
+            review.setMediaItem(mediaItem);
+            reviewRepository.save(review);
 
             user.addReview(review);
             userRepository.save(user);

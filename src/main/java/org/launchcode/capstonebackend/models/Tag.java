@@ -1,5 +1,7 @@
 package org.launchcode.capstonebackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -17,9 +19,11 @@ public class Tag extends AbstractEntity {
     @NotBlank
     private String name;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "tags")
     private List<MediaItem> mediaItems = new ArrayList<>();
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -27,6 +31,8 @@ public class Tag extends AbstractEntity {
     public Tag(String name) {
         this.name = name;
     }
+
+    public Tag() {}
 
     public String getName() {
         return name;

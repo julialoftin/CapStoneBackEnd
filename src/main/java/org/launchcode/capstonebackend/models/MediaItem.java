@@ -1,6 +1,8 @@
 package org.launchcode.capstonebackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,9 +24,11 @@ public class MediaItem {
     @ManyToMany(mappedBy = "mediaItems", cascade = CascadeType.ALL)
     private List<WatchList> watchLists;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "mediaItem")
-    private List<Review> reviews;
+    private List<Review> reviews = new ArrayList<>();
 
+    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name = "tmdb_id"),

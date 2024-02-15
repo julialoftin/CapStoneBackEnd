@@ -50,7 +50,7 @@ public class TagController {
     // Creates tag, but does not associate it with a media item
     @PostMapping("/create")
     public ResponseEntity<Tag> createTag(@RequestBody @Valid TagDTO tagDTO,
-                                      Errors errors, HttpSession session) {
+                                         Errors errors, HttpSession session) {
         try {
             if (errors.hasErrors()) {
                 return ResponseEntity.badRequest().build();
@@ -68,9 +68,11 @@ public class TagController {
 
             // Creates a new tag
             Tag tag = convertTagDTOToEntity(tagDTO);
+            tag.setUser(user);
+            tagRepository.save(tag);
+
             user.addTag(tag);
             userRepository.save(user);
-            tagRepository.save(tag);
 
             return ResponseEntity.ok().body(tag);
         } catch (Exception exception) {
@@ -95,6 +97,13 @@ public class TagController {
             Tag tag = convertTagDTOToEntity(tagMediaItemCombinedDTO.getTagDTO());
             MediaItem mediaItem = convertMediaItemDTOToEntity(tagMediaItemCombinedDTO.getMediaItemDTO());
 
+            if (tag.getUser() == null) {
+                tag.setUser(user);
+                tag.addMediaItem(mediaItem);
+                tagRepository.save(tag);
+                user.addTag(tag);
+                userRepository.save(user);
+            }
             tag.addMediaItem(mediaItem);
             tagRepository.save(tag);
 
